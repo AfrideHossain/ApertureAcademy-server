@@ -3,6 +3,7 @@ const router = express.Router();
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { client } = require("../../mongoDbConnection");
+const verifyJwt = require("../middlewares/verifyJwt");
 // mongo db collections
 const user_collections = client.db("apertureacademy").collection("users");
 
@@ -18,6 +19,18 @@ router.post("/jwtSign", async (req, res) => {
   let userData = req.body;
   let token = jwt.sign(userData, process.env.JWT_SECRET);
   res.send({ token });
+});
+// route 3 : fetch role
+router.get("/user/role/:email", verifyJwt, async (req, res) => {
+  let userEmail = req.params.email;
+  if (req.user.email !== userEmail) {
+    res.status(401).send({ error: "Unauthorized access" });
+  }
+  let role = await user_collections.findOne(
+    { email: userEmail },
+    { projection: { _id: 0, role: 1 } }
+  );
+  res.send({ role });
 });
 
 module.exports = router;
