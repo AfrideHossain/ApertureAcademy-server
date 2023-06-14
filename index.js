@@ -25,6 +25,9 @@ app.get("/", (req, res) => {
   res.send("Aperture Academy going good...");
 });
 
+// auth route
+app.use("/", require("./routes/authentication/auth"));
+
 app.listen(port, () => {
   console.log(`Aperture Academy listening on port ${port}`);
 });
