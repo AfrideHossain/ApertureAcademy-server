@@ -14,5 +14,17 @@ router.post("/addclass", verifyJwt, instructorVerify, async (req, res) => {
   let addClassReq = await classes_collection.insertOne(classInfo);
   res.send(addClassReq);
 });
+// route 1 : Add class
+router.get(
+  "/instructorsclasses",
+  verifyJwt,
+  instructorVerify,
+  async (req, res) => {
+    const email = req.user.email;
+    const query = { instructorEmail: email };
+    let classes = await classes_collection.find(query).toArray();
+    res.send(classes);
+  }
+);
 
 module.exports = router;
