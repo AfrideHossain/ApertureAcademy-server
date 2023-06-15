@@ -27,6 +27,8 @@ app.get("/", (req, res) => {
 
 // auth route
 app.use("/", require("./routes/authentication/auth"));
+// manage classes route
+app.use("/", require("./routes/manageClasses/manageClasses"));
 
 app.listen(port, () => {
   console.log(`Aperture Academy listening on port ${port}`);
