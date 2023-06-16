@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 require("dotenv").config();
-const jwt = require("jsonwebtoken");
 const { client } = require("../../mongoDbConnection");
 const verifyJwt = require("../middlewares/verifyJwt");
 const instructorVerify = require("../middlewares/instructorVerify");
