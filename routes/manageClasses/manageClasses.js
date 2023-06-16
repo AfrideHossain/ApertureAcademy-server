@@ -59,5 +59,20 @@ router.get("/approvedclasses", async (req, res) => {
     .toArray();
   return res.send(classes);
 });
+// route 5 : classes by id
+router.post("/classesbyid", async (req, res) => {
+  const ids = req.body.ids;
+  let objectIds = [];
+  ids.forEach((id) => {
+    objectIds.push(new ObjectId(id));
+  });
+  let classes = await classes_collection
+    .find(
+      { _id: { $in: objectIds } },
+      { projection: { status: 0, feedback: 0 } }
+    )
+    .toArray();
+  return res.send(classes);
+});
 
 module.exports = router;
