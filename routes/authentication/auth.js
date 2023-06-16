@@ -24,13 +24,13 @@ router.post("/jwtSign", async (req, res) => {
 router.get("/user/role/:email", verifyJwt, async (req, res) => {
   let userEmail = req.params.email;
   if (req.user.email !== userEmail) {
-    res.status(401).send({ error: "Unauthorized access" });
+    return res.status(401).send({ error: "Unauthorized access" });
   }
   let role = await user_collections.findOne(
     { email: userEmail },
     { projection: { _id: 0, role: 1 } }
   );
-  res.send({ role });
+  return res.send({ role });
 });
 
 module.exports = router;

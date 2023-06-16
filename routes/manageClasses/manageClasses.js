@@ -51,5 +51,13 @@ router.put("/class/deny/:id", verifyJwt, adminVerify, async (req, res) => {
   );
   res.send(denyClass);
 });
+// route 5 : Approved classes
+router.get("/approvedclasses", async (req, res) => {
+  const query = { status: "approved" };
+  let classes = await classes_collection
+    .find(query, { projection: { status: 0, feedback: 0 } })
+    .toArray();
+  return res.send(classes);
+});
 
 module.exports = router;
