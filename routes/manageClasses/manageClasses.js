@@ -59,7 +59,7 @@ router.get("/approvedclasses", async (req, res) => {
     .toArray();
   return res.send(classes);
 });
-// route 5 : classes by id
+// route 6 : classes by id
 router.post("/classesbyid", async (req, res) => {
   const ids = req.body.ids;
   let objectIds = [];
@@ -71,6 +71,18 @@ router.post("/classesbyid", async (req, res) => {
       { _id: { $in: objectIds } },
       { projection: { status: 0, feedback: 0 } }
     )
+    .toArray();
+  return res.send(classes);
+});
+
+// route 5 : Popular classes
+router.get("/popularclasses", async (req, res) => {
+  let classes = await classes_collection
+    .find(
+      { status: "approved" },
+      { sort: { students: -1 }, projection: { status: 0, feedback: 0 } }
+    )
+    .limit(6)
     .toArray();
   return res.send(classes);
 });
