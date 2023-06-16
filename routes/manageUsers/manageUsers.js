@@ -14,17 +14,13 @@ router.get("/users", verifyJwt, adminVerify, async (req, res) => {
   res.send(users);
 });
 // route 2 : make instructor
-router.put(
-  "/user/makeInstructor/:id",
-  verifyJwt,
-  adminVerify,
-  async (req, res) => {
-    const userId = req.params.id;
-    let makeInstructor = await user_collections.updateOne(
-      { _id: new ObjectId(userId) },
-      { $set: { status: "approved" } }
-    );
-    res.send(makeInstructor);
-  }
-);
+router.put("/user/changerole/:id", verifyJwt, adminVerify, async (req, res) => {
+  const userId = req.params.id;
+  const role = req.body.role
+  let changeRole = await user_collections.updateOne(
+    { _id: new ObjectId(userId) },
+    { $set: { role: role } }
+  );
+  res.send(changeRole);
+});
 module.exports = router;
