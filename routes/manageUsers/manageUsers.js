@@ -57,7 +57,6 @@ router.put("/users/selectedclasses/:email", verifyJwt, async (req, res) => {
   let updateSelectedClasses = await user_collections.updateOne(query, {
     $set: { selectedClasses: newClasses },
   });
-  console.log(updateSelectedClasses);
   res.send(updateSelectedClasses);
 });
 // route 5 : Get all enrolled classes
