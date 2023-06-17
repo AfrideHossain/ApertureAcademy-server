@@ -31,6 +31,8 @@ app.use("/", require("./routes/authentication/auth"));
 app.use("/", require("./routes/manageClasses/manageClasses"));
 // manage users route
 app.use("/", require("./routes/manageUsers/manageUsers"));
+// manage payments route
+app.use("/", require("./routes/managePayments/managePayments"));
 
 app.listen(port, () => {
   console.log(`Aperture Academy listening on port ${port}`);

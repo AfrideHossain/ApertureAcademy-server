@@ -53,7 +53,6 @@ router.put("/users/selectedclasses/:email", verifyJwt, async (req, res) => {
   const email = req.params.email;
   const query = { email: email };
   const newClasses = req.body.newClasses;
-  console.log("newClasses = ", newClasses);
   let updateSelectedClasses = await user_collections.updateOne(query, {
     $set: { selectedClasses: newClasses },
   });
@@ -64,7 +63,7 @@ router.get("/users/enrolledclasses/:email", verifyJwt, async (req, res) => {
   const email = req.params.email;
   const query = { email: email };
   let enrolledClasses = await user_collections.findOne(query, {
-    projection: { selectedClasses: 1, _id: 0 },
+    projection: { enrolledClasses: 1, _id: 0 },
   });
   res.send(enrolledClasses);
 });
